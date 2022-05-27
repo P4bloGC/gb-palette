@@ -1,0 +1,249 @@
+
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+		
+		<link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+		
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#"><i class="nes-kirby"></i> GB PALETTE CONVERTER</a>
+			</div>
+		</div>
+		
+		<div class="container"><br>
+			
+			<div class="row">
+				<div class="col-md-12">
+					
+					<section class="topic">
+						<h2 id="about"><a href="#about">#</a>About</h2> 
+						<p>This is a color converter that runs on the web browser.
+						It can convert RGB or hexadecimal color code (HEX) to Game Boy OSD palette.</p>
+					</section>
+					
+				</div><br>
+				
+				<div class="col-md-12">
+					
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Color0</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Color1</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Color2</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="color3-tab" data-toggle="tab" href="#color3" role="tab" aria-controls="contact" aria-selected="false">Color3</a>
+						</li>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br>
+							
+							<div class="row">
+								<div class="col-md-5">
+									<div class="nes-field is-inline">
+										<label for="inline_field">Hex:</label>
+										<input type="text" id="hex0" class="nes-input" placeholder="#000000" onchange="hexToGb(this.value,0)" value="#7f860f">
+									</div>
+								</div>
+								
+								<div class="col-md-7">
+									<div class="nes-field is-inline">
+										<!--<button type="button" class="nes-btn is-error" id="btnR0">127</button>:-->
+										<input type="number" id="btnR0" class="nes-input" min=0 max=255 style="width:100px" value=127 onchange="rgbToGb(0)">:
+										<progress class="nes-progress is-error rHex0" value="16" max="31"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnG0" class="nes-input" min=0 max=255 style="width:100px" value=134 onchange="rgbToGb(0)">:
+										<progress class="nes-progress is-success gHex0" value="34" max="63"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnB0" class="nes-input" min=0 max=255 style="width:100px" value=15 onchange="rgbToGb(0)">:
+										<progress class="nes-progress is-primary bHex0" value="2" max="31"></progress>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"><br>
+							
+							<div class="row">
+								<div class="col-md-5">
+									<div class="nes-field is-inline">
+										<label for="inline_field">Hex:</label>
+										<input type="text" id="hex1" class="nes-input" placeholder="#000000" onchange="hexToGb(this.value,1)" value="#577c44">
+									</div>
+								</div>
+								
+								
+								<div class="col-md-7">
+									<div class="nes-field is-inline">
+										<input type="number" id="btnR1" class="nes-input" min=0 max=255 style="width:100px" value=87 onchange="rgbToGb(1)">:
+										<progress class="nes-progress is-error rHex1" value="11" max="31"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnG1" class="nes-input" min=0 max=255 style="width:100px" value=124 onchange="rgbToGb(1)">:
+										<progress class="nes-progress is-success gHex1" value="31" max="63"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnB1" class="nes-input" min=0 max=255 style="width:100px" value=68 onchange="rgbToGb(1)">:
+										<progress class="nes-progress is-primary bHex1" value="9" max="31"></progress>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"><br>
+							
+							<div class="row">
+								<div class="col-md-5">
+									<div class="nes-field is-inline">
+										<label for="inline_field">Hex:</label>
+										<input type="text" id="hex2" class="nes-input" placeholder="#000000" onchange="hexToGb(this.value,2)" value="#365d48">
+									</div>
+								</div>
+								
+								<div class="col-md-7">
+									<div class="nes-field is-inline">
+										<input type="number" id="btnR2" class="nes-input" min=0 max=255 style="width:100px" value=54 onchange="rgbToGb(2)">:
+										<progress class="nes-progress is-error rHex2" value="7" max="31"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnG2" class="nes-input" min=0 max=255 style="width:100px" value=93 onchange="rgbToGb(2)">:
+										<progress class="nes-progress is-success gHex2" value="23" max="63"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnB2" class="nes-input" min=0 max=255 style="width:100px" value=72 onchange="rgbToGb(2)">:
+										<progress class="nes-progress is-primary bHex2" value="9" max="31"></progress>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="tab-pane fade" id="color3" role="tabpanel" aria-labelledby="color3-tab"><br>
+							
+							<div class="row">
+								<div class="col-md-5">
+									<div class="nes-field is-inline">
+										<label for="inline_field">Hex:</label>
+										<input type="text" id="hex3" class="nes-input" placeholder="#000000" onchange="hexToGb(this.value,3)" value="#2a453b">
+									</div>
+								</div>
+								
+								<div class="col-md-7">
+									<div class="nes-field is-inline">
+										<input type="number" id="btnR3" class="nes-input" min=0 max=255 style="width:100px" value=42 onchange="rgbToGb(3)">:
+										<progress class="nes-progress is-error rHex3" value="5" max="31"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnG3" class="nes-input" min=0 max=255 style="width:100px" value=69 onchange="rgbToGb(3)">:
+										<progress class="nes-progress is-success gHex3" value="17" max="63"></progress>
+									</div><br>
+									
+									<div class="nes-field is-inline">
+										<input type="number" id="btnB3" class="nes-input" min=0 max=255 style="width:100px" value=59 onchange="rgbToGb(3)">:
+										<progress class="nes-progress is-primary bHex3" value="7" max="31"></progress>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="col-md-12" id="image"><br>
+					<section class="nes-container with-title"><h3 class="title">Game Boy OSD Preview</h3> 
+						<div id="tables" class="item">
+							<div class="nes-table-responsive">
+								<table height="30px" width="460px" height="600px">
+									<tbody>
+										<tr>
+											<td class="itemHex0" style="background-color:#7f860f" align="center">
+												<span class="nes-text is-disabled"><a id="r0">16</a><br> <a id="g0">34</a><br> <a id="b0">2</a><br></span>
+											</td>
+											<td class="itemHex1" style="background-color:#577c44" align="center">
+												<span class="nes-text is-disabled"><a id="r1">11</a><br> <a id="g1">31</a><br> <a id="b1">9</a><br></span>
+											</td>
+											<td class="itemHex2" style="background-color:#365d48" align="center">
+												<span class="nes-text is-disabled"><a id="r2">7</a><br> <a id="g2">23</a><br> <a id="b2">9</a><br></span>
+											</td>
+											<td class="itemHex3" style="background-color:#2a453b" align="center">
+												<span class="nes-text is-disabled"><a id="r3">5</a><br> <a id="g3">17</a><br> <a id="b3">7</a><br></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div><br>
+							
+							<img src="gb.png" id="layout" class="d-none">
+							
+							<canvas id="canvas"></canvas>
+						</section>
+					</div>
+					
+				</div><br>
+				
+				
+				<!-- Dialog -->
+				<section>
+					<button type="button" class="nes-btn is-primary" onclick="document.getElementById('dialog-default').showModal();">
+						Download
+					</button>
+					<dialog class="nes-dialog" id="dialog-default">
+						<form method="dialog">
+							<div class="nes-field is-inline">
+								<label for="inline_field">Palette name:</label>
+								<input type="text" id="palette" class="nes-input">
+							</div>
+							<menu class="dialog-menu">
+								<button class="nes-btn">Cancel</button>
+								<button class="nes-btn is-primary" onclick="downloadImage()">Confirm</button>
+							</menu>
+						</form>
+					</dialog>
+				</section>
+				
+				
+			</div>
+			
+			<!-- Footer -->
+			<footer class="page-footer font-small blue">
+				
+				<!-- Copyright -->
+				<div class="footer-copyright text-center py-3">© 2020 Pablo Gonzalez
+				</div>
+				<!-- Copyright -->
+				
+			</footer>
+			<!-- Footer -->
+			
+		</div>
+		
+		<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+		<script src="functions.js"></script>
+	</body>
+</html>
