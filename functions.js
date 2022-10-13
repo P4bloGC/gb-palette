@@ -5,6 +5,7 @@ window.onload = function() {
 	c.width = img.width;
 	c.height = img.height;
 	ctx.drawImage(img, 0, 0);	
+	
 };
 
 function hexToGb(hex,id) 
