@@ -4,31 +4,16 @@ window.onload = function() {
 	var img = document.getElementById("layout");
 	c.width = img.width;
 	c.height = img.height;
-	ctx.drawImage(img, 0, 0);	
-	
+	ctx.drawImage(img, 0, 0);
+	updateImage();
 };
 
 function hexToGb(hex,id) 
 {	
 	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);	
-	var	r = Math.round(parseInt(result[1], 16)/8);
-	var	g = Math.round(parseInt(result[2], 16)/4);
-	var	b = Math.round(parseInt(result[3], 16)/8);
-	
-	if(r > 31)
-	{
-		var r = 31;
-	}
-	
-	if(g > 63)
-	{
-		var g = 63;
-	}
-	
-	if(b > 31)
-	{
-		var b = 31;
-	}
+	var r = Math.min(31, Math.round(parseInt(result[1], 16) / 8));
+	var g = Math.min(63, Math.round(parseInt(result[2], 16) / 4));
+	var b = Math.min(31, Math.round(parseInt(result[3], 16) / 8));
 	
 	$(".itemHex" + id).css("background-color",hex);
 	$(".rHex" + id).val(r);
@@ -47,17 +32,6 @@ function hexToGb(hex,id)
 	
 }
 
-function hexToRgb(hex) 
-{
-	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-	var r = parseInt(result[1], 16);
-	var g = parseInt(result[2], 16);
-	var b = parseInt(result[3], 16);
-	
-	return r+";"+g+";"+b;
-	
-}
-
 function rgbToHex(r, g, b) 
 {
 	return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -73,61 +47,64 @@ function rgbToGb(num)
 	hexToGb(hex, num);
 }
 
+function hexToRgbArr(hex) 
+{
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	if (!result) return [0, 0, 0];
+	return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
+}
+
 function updateImage()
 {
-	var target0 = '#7f860f';
-	var target1 ='#577c44';
-	var target2 ='#365d48';
-	var target3 ='#2a453b';
-	var replace0 = $('#hex0').val();
-	var replace1 = $('#hex1').val();
-	var replace2 = $('#hex2').val();
-	var replace3 = $('#hex3').val();
+	var target0 = [0x7f, 0x86, 0x0f];
+	var target1 = [0x57, 0x7c, 0x44];
+	var target2 = [0x36, 0x5d, 0x48];
+	var target3 = [0x2a, 0x45, 0x3b];
+	
+	var replace0 = hexToRgbArr($('#hex0').val());
+	var replace1 = hexToRgbArr($('#hex1').val());
+	var replace2 = hexToRgbArr($('#hex2').val());
+	var replace3 = hexToRgbArr($('#hex3').val());
+	
 	var c = document.getElementById("canvas");
 	var ctx = c.getContext("2d");
 	var img = document.getElementById("layout");
 	c.width = img.width;
 	c.height = img.height;
 	ctx.drawImage(img, 0, 0);
-	var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	var imageData = ctx.getImageData(0, 0, c.width, c.height);
 	var data = imageData.data;
 	
-	for (var i = 0; i < data.length; i+= 4) 
+	for (var i = 0; i < data.length; i += 4) 
 	{
-		var hex = rgbToHex(data[i], data[i+1], data[i+2]);
+		var r = data[i];
+		var g = data[i + 1];
+		var b = data[i + 2];
 		
-		if(hex == target0)
+		if (r === target0[0] && g === target0[1] && b === target0[2])
 		{
-			var rgb = hexToRgb(replace0).split(';');
-			data[i] = rgb[0] // Red
-			data[i+1] = rgb[1] // Green
-			data[i+2] = rgb[2] // Blue
+			data[i] = replace0[0];
+			data[i + 1] = replace0[1];
+			data[i + 2] = replace0[2];
 		}
-		
-		if(hex == target1)
+		else if (r === target1[0] && g === target1[1] && b === target1[2])
 		{
-			var rgb = hexToRgb(replace1).split(';');
-			data[i] = rgb[0] // Red
-			data[i+1] = rgb[1] // Green
-			data[i+2] = rgb[2] // Blue	
+			data[i] = replace1[0];
+			data[i + 1] = replace1[1];
+			data[i + 2] = replace1[2];
 		}
-		
-		if(hex == target2)
+		else if (r === target2[0] && g === target2[1] && b === target2[2])
 		{
-			var rgb = hexToRgb(replace2).split(';');
-			data[i] = rgb[0] // Red
-			data[i+1] = rgb[1] // Green
-			data[i+2] = rgb[2] // Blue			
+			data[i] = replace2[0];
+			data[i + 1] = replace2[1];
+			data[i + 2] = replace2[2];
 		}
-		
-		if(hex == target3)
+		else if (r === target3[0] && g === target3[1] && b === target3[2])
 		{
-			var rgb = hexToRgb(replace3).split(';');
-			data[i] = rgb[0] // Red
-			data[i+1] = rgb[1] // Green
-			data[i+2] = rgb[2] // Blue			
+			data[i] = replace3[0];
+			data[i + 1] = replace3[1];
+			data[i + 2] = replace3[2];
 		}
-		
 	}
 	
 	ctx.putImageData(imageData, 0, 0);
